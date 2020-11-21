@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+          integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+          crossorigin="anonymous"></script>
+  <script src="qrcode.js"></script>
+  <style type="text/css">
+      body {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          font-size: 2em;
+          font-family: 'Roboto Mono', monospace;
+      }
+
+      .row {
+          display: flex;
+          flex-direction: row;
+      }
+
+      .item {
+          border: 1px solid black;
+          text-align: center;
+          padding: 1rem;
+      }
+  </style>
+</head>
+<body>
+
+</body>
+
+<script>
+  const add = (dom, html) => {
+    dom.innerHTML += html;
+  }
+
+  const columns = 3;
+  const numbers = 3;
+  const colours = [
+    {
+      label: 'PINK',
+      colour: "pink",
+    }
+  ];
+
+  for (const colour of colours) {
+    for (let number = 1; number <= numbers; number++) {
+      const label = `${colour.label}-${number}`;
+      add(document.body, `<div class="row" id="${label}"></div>`);
+      for (let column = 0; column < columns; column++) {
+        let id = `qr-${label}-${column}`;
+        add(document.getElementById(label), `<div class="item" style="background-color: ${colour.colour}"><div class="qr" id="${id}"></div><p>${label}</p></div>`);
+        setTimeout(() => {
+          new QRCode(document.getElementById(id), label);
+        }, 100);
+      }
+    }
+  }
+
+</script>
+</html>
